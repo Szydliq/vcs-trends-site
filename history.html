@@ -1,0 +1,204 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>History of VCS</h1>
+        <ol>
+            <p><b>Historical Evolution of Version Control Systems</b>
+</p>
+
+<p>The evolution of VCS spans several decades, with distinct generations of tools marking key milestones.
+Early systems were centralized, relying on a single repository server, while later systems introduced
+distributed collaboration. Below is a timeline of major milestones in VCS history, from the 1970s to
+today, illustrating this evolution</p>
+<p>1972: Source Code Control System (SCCS) – one of the first version control systems, developed
+at Bell Labs, which introduced the basic idea of tracking changes (initially used on IBM
+mainframes)</p>
+
+<p>1982: Revision Control System (RCS) – released by Walter Tichy at Purdue University, RCS
+automated change tracking for individual files using delta storage (storing differences between
+file versions) . RCS was a local VCS (no network support), handling one file at a time.</p>
+<p>1986: Concurrent Versions System (CVS) – developed by Dick Grune as a front-end to RCS, CVS
+allowed collaboration on whole projects with a client-server model . It added networked
+repositories and concurrent multi-developer capabilities to RCS. CVS became widely used in the
+1990s for open-source and commercial projects, despite limitations (e.g. non-atomic commits
+and tricky branching). 
+</p>
+
+<p>2000: Subversion (SVN) – created by CollabNet as a successor to CVS, Subversion improved on
+CVS’s weaknesses. SVN introduced atomic commits (all-or-nothing changesets), better handling
+of file renames, and more efficient network operations. By ~2006, SVN had become one of the
+most popular VCS tools, addressing many of CVS’s shortcomings . SVN was still
+centralized: a single repository stored the code, and developers committed to that central server.</p>
+<p>2005: Git and Mercurial – a breakthrough year for version control. In 2005, after the Linux
+kernel’s commercial VCS (BitKeeper) license was revoked, Linus Torvalds created Git as a new
+distributed VCS for the kernel . Around the same time, Matt Mackall released Mercurial. Both
+Git and Mercurial are distributed version control systems (DVCS), meaning every user has a
+full copy of the repository. Git quickly became the dominant VCS of the two – by 2019 it was
+estimated to have ~80% market share vs. ~2% for Mercurial . (We’ll discuss distributed vs.
+centralized concepts more in a moment.)</p>
+
+<p>2008: GitHub launched – GitHub provided a web-based collaboration platform on top of Git. It
+made sharing code and participating in projects easier with features like pull requests, issue
+tracking, and social networking for developers. GitHub (and later similar services like Bitbucket
+and GitLab) greatly accelerated Git’s adoption across the industry.</p>
+
+<p>2010s: Wide adoption of Git and migration from older systems – Throughout the 2010s, many
+teams and open-source projects migrated from CVS, SVN, or other tools to Git. Even companies
+that had used centralized systems (like Microsoft’s TFS or Perforce) moved toward Git-based
+workflows. Distributed version control became the new standard for most software
+development.</p>
+
+<p>Late 2010s: GitOps and modern practices – In 2017, the term GitOps was introduced by
+Weaveworks, highlighting an approach to use Git repositories as the single source of truth for
+infrastructure and deployments (more on this later) . Integration of VCS with Continuous
+Integration/Continuous Delivery (CI/CD) pipelines became mainstream, and cloud-hosted VCS
+platforms grew in popularity</p>
+
+<p.>2020s: AI and large-scale collaboration – Recent years have seen cloud platforms for VCS reach
+massive scale (e.g. as of 2023 GitHub reported over 100 million developers using its platform
+). Artificial intelligence is also beginning to assist in code management and review (with tools
+like GitHub Copilot and AI-driven code review assistants). Version control remains central to
+modern DevOps workflows, enabling everything from open-source projects with thousands of
+contributors to automated infrastructure management via GitOps.
+</p.>
+
+<p><b>Centralized vs. Distributed Version Control
+</b></p>
+
+<p>Version control systems can be centralized or distributed. Understanding this distinction is key to
+comparing tools and workflows:</p>
+
+<p>Centralized Version Control (CVCS): A single central repository on a server holds the “official”
+copy of the code. Developers commit changes to this server and update (pull) changes from it.
+Tools like RCS, CVS, and Subversion are centralized. In a CVCS, collaboration requires network
+access to the server – if the server is down, nobody can commit changes. This model provides a
+single source of truth and is straightforward to understand: everyone works on the same central
+codebase . However, it creates a single point of failure (if the central repo is lost or
+offline, work halts) . Collaboration is linear; merging changes from multiple developers can
+be challenging, so teams often avoided creating too many branches in the past. 
+</p>
+
+<p><b>Centralized VCS Example:</b>The figure below illustrates a simple centralized VCS setup, with developers
+interacting with a single shared repository</p>
+
+<p>Each developer pulls the latest version from the central server and then commits their changes back,
+so others can update to see them. This model ensures everyone sees others’ changes (ensuring
+consistency), but requires coordination through the central server.
+</p>
+
+<p><b>Distributed Version Control (DVCS):</b> In distributed systems like Git or Mercurial, every developer
+has their own full copy of the repository, including the entire history . There is no inherent
+single master server – every clone can serve as a remote for others. Developers can commit
+changes locally to their own repository (even offline), and later push those changes to share with
+others or pull updates from peers. This offers greater flexibility: work can continue even if no
+central server is accessible, and there’s redundancy (every clone is a backup of the project).
+Merging is a first-class operation in DVCS, enabling prolific branching and non-linear
+development workflows. Teams can still designate a “central” repository by convention (for
+example, a main project repo on GitHub) – but the tools don’t enforce a single point of authority,
+it’s a social/project choice .
+</p>
+
+<p><b>Distributed VCS Example:</b> Each developer’s computer has a full local repository (with all versions). They can synchronize
+changes by pushing to or pulling from a server or directly with each other. This peer-to-peer nature
+allows multiple collaboration models – e.g. one can contribute via a central hub (like sharing to a
+project’s main repo) or directly exchange changes with a colleague. DVCS makes many actions
+(commits, diffs, logs) very fast since they are done locally, and network operations are only needed
+when syncing with others. 
+</p>
+
+<p><b>In summary:</b> Centralized systems are simple and good for a single source of truth, but suffer from
+single-point failures and require connectivity for most operations. Distributed systems add complexity
+in exchange for greater flexibility, offline work, and resilience – these have become dominant in modern
+development . Many projects that started on CVCS (like Subversion) eventually migrated to DVCS
+(like Git) to take advantage of these benefits.
+</p>
+
+<p><b>Comparing Major VCS Tools and Their Use Cases</b></p>
+
+<p>Over time, various VCS tools have been created, each suited to certain use cases and project sizes.
+Here’s a comparison of some historically significant systems:
+</p>
+
+<p><b>RCS (Revision Control System):</b> Type: Local (centralized for single files). Use case: Individual
+developers or small projects needing versioning on single files. RCS works on one file at a time
+(no multi-file atomic commits). It’s simple and still sometimes used for configuration files or
+small local versioning tasks. However, it’s not designed for collaborative network use. (RCS is
+largely obsolete today, but its concepts influenced later systems .)</p>
+
+<p><b>CVS (Concurrent Versions System):</b> Type: Centralized client-server. Use case: Small-to-medium
+team projects (up to the 2000s) that need basic collaboration. CVS was popular in open source
+(e.g. early Linux, GNOME, etc.) and introduced the idea of concurrent editing (multiple
+developers working on the code simultaneously) . However, CVS lacks atomic commits and
+has weaker branching/merging support, so larger teams often encountered difficulties with it
+(risk of broken builds from partial commits, etc.). Modern teams have mostly moved away from
+CVS.
+</p>
+
+<p><b>Subversion (SVN):</b> Type: Centralized. Use case: Projects needing a more robust central VCS than
+CVS. SVN improved reliability – commits are atomic (all files commit or none) and branching/
+merging is better supported than in CVS. Many corporate projects and open-source projects
+adopted SVN in the mid-2000s. For example, the Apache Software Foundation used SVN to host
+many projects. SVN is suitable when a central repository model is desired but with more
+features; it’s still in use for some legacy projects and environments that prefer a simpler linear
+history. However, branching in SVN, while possible, can become cumbersome on very large
+teams (leading many to adopt Git later). By around 2006, SVN was the most widely used VCS in
+many sectors .
+</p>
+
+<p><b>Git:</b> Type: Distributed. Use case: Almost any scale – from individual projects to the largest opensource endeavors. Git is extremely fast at branching and merging, making it ideal for projects
+where developers create many experimental branches or work in parallel. It shines in opensource projects (like Linux, where thousands of developers contribute globally) and in modern
+DevOps workflows (integrating with build and deployment pipelines). Git has a steeper learning
+curve (concepts like staging, rebasing, etc.) but offers flexibility and performance. Today, Git is
+the de facto standard: a large majority of software teams use it for version control . Its
+ecosystem (tools, community, integrations) is very rich</p>
+
+<p><b>Mercurial:</b>  Type: Distributed. Use case: Similar to Git in scope – Mercurial was designed for
+performance and ease of use with a DVCS model. It has a more straightforward command set
+and was preferred by some projects (for example, Facebook historically used a custom Mercurial
+for their massive codebase, and the Python language project used Mercurial for many years).
+Mercurial is efficient and user-friendly, but it did not achieve the same widespread adoption as
+Git. One reason is the network effect of GitHub – GitHub initially supported Git only, drawing the community toward Git. Mercurial remains known for its simplicity in certain workflows and is still
+used in some environments (Bitbucket supported Mercurial hosting until 2020, for instance)</p>
+
+<p><b>Other tools:</b>  Perforce (Helix) is a fast centralized VCS often used in game development and large
+binary asset repositories (it handles huge files well and has fine-grained locking capabilities –
+useful for cases where merging binaries is impossible). ClearCase (IBM) was another enterprise
+version control system with heavy features (and complexity). Bazaar was a distributed system
+popular in the Ubuntu/Linux community in the late 2000s (now largely deprecated). Team
+Foundation Version Control (TFVC) by Microsoft was a centralized system integrated with
+Microsoft’s development tools, but Microsoft later embraced Git in their Azure DevOps and
+GitHub offerings. In summary, each tool had design trade-offs: centralized tools often gave
+simpler administration and permissions control, while distributed tools gave flexibility and
+speed. Today, Git (distributed) dominates, but understanding earlier tools gives context on why
+features like branching and offline work matter</p>
+
+<p><b>Key Concepts and Features</b></p>
+
+<p>No matter the tool, all version control systems share some core concepts: - Repository: The database of
+all versioned files and their history. In CVCS, there’s one central repo; in DVCS, each clone is a repo. -
+Working copy: Your local checkout of files from the repository. You edit these and then commit changes.
+- Commit (Check-in): Saving a set of changes to the repository, creating a new revision. Commits usually
+include a message describing the change. In distributed systems, you commit to your local repo and
+later push to a shared repo. - Update (Pull/Checkout): Bringing the latest changes from the repo into your
+working copy. In Git, “pull” combines fetching new commits and merging them. - Branch: A parallel line
+of development – a pointer to a series of commits separate from other lines. Branches allow working on
+features or fixes in isolation. Git’s cheap branching made branching/merging very common; in SVN/CVS,
+branches were heavier so often fewer were used. - Merge: Integrating changes from one branch into
+another. When multiple people edit, merges are how their work is combined. DVCS are designed to
+merge frequently; CVCS can merge but often with more manual steps or risk of conflicts. - Conflict:
+When two changes touch the same part of a file in incompatible ways, a merge conflict occurs. VCS will
+mark conflicts, and a developer must resolve them. - Tag/Release: Marking a specific commit as a named
+version (e.g., “v1.0”). Useful for release points. - Revert: Going back to a previous version if a change
+introduces problems.
+</p>
+
+<p>Understanding these concepts helps you use any VCS effectively. Modern tools like Git have many
+advanced commands built on these basics, but at their heart, all VCS help you track changes,
+collaborate, and preserve history</p>
+
+        </ol>
+        <a href="index.html">Go back</a>
+    </body>
+</html>
